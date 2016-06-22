@@ -4,12 +4,12 @@ A file structure and boilerplate code to begin with when starting a new react pr
 
 ## Getting Started
 
-#### Clone the repo
+To build the repo locally and install dependencies
 
     git clone https://github.com/christiantownsend/react-boilerplate.git
-
-#### Install dependencies
-
-From inside the directory, run:
-
+    cd react-boilerplate
     npm install
+
+To start the development server:
+
+    npm run start
