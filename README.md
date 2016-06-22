@@ -10,4 +10,5 @@ A file structure and boilerplate code to begin with when starting a new react pr
 #### Install dependencies
 
 From inside the directory, run:
+
     npm install
