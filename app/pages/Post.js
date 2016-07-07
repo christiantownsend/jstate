@@ -1,0 +1,111 @@
+import React from 'react';
+import { Link } from 'react-router';
+import { convertToRaw } from 'draft-js';
+import axios from 'axios';
+import 'whatwg-fetch';
+
+import PostTitle from '../components/PostTitle.js'
+import RichEditor from '../components/RichEditor.js'
+
+class Post extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editing: false,
+      creating: false,
+    };
+
+    this.toggleEditing = () => {
+      this.setState({editing: true})
+    };
+
+    this.handleSave = () => {
+      if (!this.refs.title.state.title) {
+        return;
+      }
+      this.setState({editing: false})
+      console.log('Title:', this.refs.title.state.title)
+      console.log('Content:', JSON.stringify(convertToRaw(this.refs.content.state.editorState.getCurrentContent())));
+    };
+
+    this.createPost = () => {
+      if (!this.refs.title.state.title) {
+        return;
+      }
+
+      axios.post('/api/create-post', {
+        title: this.refs.title.state.title,
+        content: convertToRaw(this.refs.content.state.editorState.getCurrentContent()),
+        meta: {
+          image: '/static/img/cover-images/mountain.jpg',
+          color: 'blue'
+        }
+      }).then(response => console.log(response)).catch(error => console.log(error))
+    }
+
+    this.handleDelete = () => {
+      axios.get('/api/delete-post/' + this.props.params.postUrl).then((response) => {
+        console.log(response)
+      })
+    };
+  }
+
+  componentDidMount() {
+    axios.post('/api/login', {
+      name: 'admin',
+      password: 'admin'
+    }).then(response => console.log(response)).catch(error => console.log(error))
+    if (this.props.location.pathname == '/create-post') {
+      this.setState({creating: 'true', editing: 'true'})
+    }
+  }
+
+  render() {
+
+    let functionButtons;
+    if (this.state.editing && this.state.creating) {
+      functionButtons = (
+        <div className="functions">
+          <button onClick={this.createPost}>Post</button>
+        </div>
+      )
+    }
+    else if (this.state.editing && !this.state.creating) {
+      functionButtons = (
+        <div className="functions">
+          <button onClick={this.handleSave}>Save</button>
+          <button onClick={this.handleDelete}>Delete</button>
+        </div>
+      )
+    }
+    else {
+      functionButtons = (
+        <div className="functions">
+          <button onClick={this.toggleEditing}>Edit</button>
+          <button onClick={this.handleDelete}>Delete</button>
+        </div>
+      )
+    }
+
+
+    return (
+      <div id="post">
+        <header className="header">
+          <div className="buttons">
+            <Link to="/">Back</Link>
+            {functionButtons}
+          </div>
+
+          <PostTitle Url={this.props.location.pathname} postUrl={this.props.params.postUrl} ref="title" editing={this.state.editing} />
+
+        </header>
+        <main className="container">
+            <RichEditor Url={this.props.location.pathname} postUrl={this.props.params.postUrl} ref="content" editing={this.state.editing} />
+        </main>
+      </div>
+    )
+  }
+}
+
+export default Post;
