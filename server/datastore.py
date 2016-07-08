@@ -1,7 +1,7 @@
 from database import init_db
 from database import session
 from models import Document, User
-
+from conv import trans
 
 def create_document(title, content, meta):
     """
@@ -28,7 +28,7 @@ def update_document(url, data):
     doc.title = data['title']
     doc.content = data['content']
     doc.meta = data['meta']
-    doc.url = data['title']
+    doc.url = data['title'].lower().translate(trans)
     session.commit()
     return True
 
