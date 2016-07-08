@@ -114,10 +114,9 @@ def main():
 
 @api.route('/update-post/<url>', methods=['POST'])
 @check_login
-@do
 def update_post(url):
     try:
-        data = json.loads(request.form['data'])
+        data = request.get_json()
         try:
             if data['title'] == '':
                 return 'false'
