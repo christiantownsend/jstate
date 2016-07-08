@@ -15,7 +15,7 @@ def check_login(page):
 
         try:
             print(session)
-            if session['logged_in'] == 'true':
+            if session['logged_in'] == 'true' and session['ip'] == request.remote_addr:
                 print('test2')
                 return page(*args, **kwds)
             else:
