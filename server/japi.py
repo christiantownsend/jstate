@@ -138,12 +138,12 @@ def create_post():
 
     try:
         if data['title'] == '':
-            return 'false'
+            return 'title-blank'
     except:
-        return 'false'
+        return 'unknown-error'
 
     if ds.create_document(data['title'], data['content'], data['meta']) == False:
-        return 'false'
+        return 'in-use'
     return get_url(data['title'])
 
 @api.route('/delete-post/<url>')
