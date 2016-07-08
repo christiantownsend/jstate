@@ -115,17 +115,14 @@ def main():
 @api.route('/update-post/<url>', methods=['POST'])
 @check_login
 def update_post(url):
-    try:
-        data = request.get_json()
-        try:
-            if data['title'] == '':
-                return 'false'
-        except:
-            return 'false'
-        ds.update_document(url, data)
-        return 'true'
-    except:
+    data = request.get_json()
+
+    if data['title'] == '':
         return 'false'
+
+    out = ds.update_document(url, data)
+    return out
+
 
 @api.route('/get-post/<url>/<int:bool>')
 def get_post(url, bool):

@@ -30,7 +30,7 @@ def update_document(url, data):
     doc.meta = data['meta']
     doc.url = data['title'].lower().translate(trans)
     session.commit()
-    return True
+    return doc.url
 
 def pages():
     """
