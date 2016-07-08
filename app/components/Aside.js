@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const Aside = (props) => {
   return (
@@ -12,8 +13,8 @@ const Aside = (props) => {
         <a href="mailto:christianttownsend@gmail.com">email</a>
         <a href="https://github.com/christiantownsend">github</a>
         <a href="https://dribbble.com/christiantownsend">dribbble</a>
-
       </section>
+      <div className="button-container"><Link id="new-post" to="/create-post">New Post</Link></div>
     </aside>
   )
 }

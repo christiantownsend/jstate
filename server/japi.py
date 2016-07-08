@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from conv import create_image, do
+from conv import create_image, do, get_url
 
 import json, os
 import datastore as ds
@@ -145,7 +145,7 @@ def create_post():
         return 'false'
 
     ds.create_document(data['title'], data['content'], data['meta'])
-    return 'true'
+    return get_url(data['title'])
 
 @api.route('/delete-post/<url>')
 @check_login

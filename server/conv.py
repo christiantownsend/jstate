@@ -17,7 +17,8 @@ def do(page):
     return wrapper
 
 
-
+def get_url(title):
+    return title.lower().translate(trans)
 
 
 def get_name(path, name, num=1, new_name=None):

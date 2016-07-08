@@ -45,7 +45,6 @@ class PostsList extends React.Component {
 
     return (
       <main id="projects">
-
         {this.state.posts.map((project, key) =>
           <ProjectCard
             key={key}
@@ -54,8 +53,6 @@ class PostsList extends React.Component {
             url={project.url}
             image={project.meta.image}
           />)}
-
-        <Link to="/create-post" id="new-post"><h3>Create New Post</h3></Link>
       </main>
     )
   }

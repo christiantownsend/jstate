@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import { convertToRaw } from 'draft-js';
 import axios from 'axios';
-import 'whatwg-fetch';
 
 import PostTitle from '../components/PostTitle.js'
 import RichEditor from '../components/RichEditor.js'
@@ -41,12 +40,15 @@ class Post extends React.Component {
           image: '/static/img/cover-images/mountain.jpg',
           color: 'blue'
         }
-      }).then(response => console.log(response)).catch(error => console.log(error))
+      }).then(response => {
+        this.props.history.push(`/projects/${response.data}`)
+        this.setState({creating: false, editing: false})
+      }).catch(error => console.log(error))
     }
 
     this.handleDelete = () => {
       axios.get('/api/delete-post/' + this.props.params.postUrl).then((response) => {
-        console.log(response)
+        this.props.history.push('/')
       })
     };
   }
