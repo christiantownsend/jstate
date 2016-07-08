@@ -26296,7 +26296,7 @@
 	      });
 	    };
 
-	    _this.handleDelete = function () {
+	    _this.deletePost = function () {
 	      _axios2.default.get('/api/delete-post/' + _this.props.params.postUrl).then(function (response) {
 	        _this.props.history.push('/');
 	      });
@@ -26340,12 +26340,12 @@
 	          { className: 'functions' },
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.handleSave },
+	            { onClick: this.updatePost },
 	            'Save'
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.handleDelete },
+	            { onClick: this.deletePost },
 	            'Delete'
 	          )
 	        );

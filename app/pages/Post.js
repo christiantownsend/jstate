@@ -21,7 +21,7 @@ class Post extends React.Component {
 
     this.updatePost = () => {
       if (!this.refs.title.state.title) { return; }
-      axios.post(`/api/update-post/${this.props.params.postUrl}`, {
+      axios.post('/api/update-post/' + this.props.params.postUrl, {
         title: this.refs.title.state.title,
         content: convertToRaw(this.refs.content.state.editorState.getCurrentContent()),
         meta: {
@@ -51,7 +51,7 @@ class Post extends React.Component {
       }).catch(error => console.log(error));
     }
 
-    this.handleDelete = () => {
+    this.deletePost = () => {
       axios.get('/api/delete-post/' + this.props.params.postUrl).then((response) => {
         this.props.history.push('/')
       })
@@ -81,8 +81,8 @@ class Post extends React.Component {
     else if (this.state.editing && !this.state.creating) {
       functionButtons = (
         <div className="functions">
-          <button onClick={this.handleSave}>Save</button>
-          <button onClick={this.handleDelete}>Delete</button>
+          <button onClick={this.updatePost}>Save</button>
+          <button onClick={this.deletePost}>Delete</button>
         </div>
       )
     }
