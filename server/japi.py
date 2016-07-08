@@ -29,6 +29,7 @@ def login():
         return 'nope'
     if user.check_password(password):
         session['logged_in'] = 'true'
+        session['ip'] = request.remote_addr
         return 'logged in'
     else:
         return 'nope'
@@ -133,12 +134,13 @@ def get_post(url, bool):
 @check_login
 def create_post():
     data = request.get_json(force=True, silent=True)
+    print(data)
 
     try:
         if data['title'] == '':
-            return 'false'
+            return 'false-'
     except:
-        return 'false'
+        return 'false1'
 
     ds.create_document(data['title'], data['content'], data['meta'])
     return get_url(data['title'])
