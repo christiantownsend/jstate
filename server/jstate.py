@@ -70,4 +70,10 @@ if __name__ == '__main__':
     import datastore as ds
     init_db()
 
+    if ds.get_user('admin') == None:
+        ds.create_user('admin', 'admin')
+
+
+
     app.run(debug=True)
+
