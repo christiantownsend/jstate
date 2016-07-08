@@ -1,30 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router'
 import axios from 'axios';
-import _ from 'lodash';
 
 import ProjectCard from './ProjectCard'
-
-const projects = [
-  {
-    title: 'Mountain Background Art',
-    color: 'blue',
-    url: 'mountain-background-art',
-    image: '/static/img/cover-images/mountain.jpg'
-  },
-  {
-    title: 'Space Crystal',
-    color: 'red',
-    url: 'space-crystal',
-    image: '/static/img/cover-images/crystal.jpg'
-  },
-  {
-    title: 'Low-poly Art',
-    color: 'orange',
-    url: 'low-poly-art',
-    image: '/static/img/cover-images/mountain.jpg'
-  }
-]
 
 class PostsList extends React.Component {
   constructor(props) {

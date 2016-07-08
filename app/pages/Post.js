@@ -11,8 +11,9 @@ class Post extends React.Component {
     super(props);
 
     this.state = {
+      logged: false,
       editing: false,
-      creating: false,
+      creating: false
     };
 
     this.toggleEditing = () => {
@@ -29,6 +30,7 @@ class Post extends React.Component {
           color: 'blue'
         }
       }).then(response => {
+        this.props.history.push(`/projects/${response.data}`)
         this.setState({editing: false})
       }).catch(error => console.log(error));
     };
@@ -59,10 +61,7 @@ class Post extends React.Component {
   }
 
   componentDidMount() {
-    axios.post('/api/login', {
-      name: 'admin',
-      password: 'admin'
-    }).then(response => console.log(response)).catch(error => console.log(error))
+    axios.get('/api/logged').then(response => this.setState({logged: response.data})).catch(error => console.log(error))
     if (this.props.location.pathname == '/create-post') {
       this.setState({creating: 'true', editing: 'true'})
     }
@@ -90,7 +89,7 @@ class Post extends React.Component {
       functionButtons = (
         <div className="functions">
           <button onClick={this.toggleEditing}>Edit</button>
-          <button onClick={this.handleDelete}>Delete</button>
+          <button onClick={this.deletePost}>Delete</button>
         </div>
       )
     }
@@ -101,7 +100,7 @@ class Post extends React.Component {
         <header className="header">
           <div className="buttons">
             <Link to="/">Back</Link>
-            {functionButtons}
+            {this.state.logged ? functionButtons : null}
           </div>
 
           <PostTitle Url={this.props.location.pathname} postUrl={this.props.params.postUrl} ref="title" editing={this.state.editing} />

@@ -1,7 +1,7 @@
 /* Colors */
 $main: #334;
 $copy: #6A727D;
-$bg: #ffffff;
+$bg: #f6f6f6;
 $highlight: #F5516B;
 $highlight: #1BC2E3;
 
@@ -124,18 +124,62 @@ p {
       margin-bottom: 1em;
     }
   }
+}
 
-  .button-container {
-    margin-top: 4em;
-    text-align: center;
+/* New Post Button */
+#new-post {
+  z-index: 1000;
+  position: fixed;
+  right: 2em;
+  bottom: 2em;
 
-    #new-post {
-      background: #ddd;
-      padding: 1em 2em;
-      border-radius: 2em;
-      text-decoration: none;
-      font-weight: 700;
-      color: $main;
+  .button {
+    @include transition(.3s)
+    background-color: #fff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.19), 0 4px 6px rgba(0,0,0,0.23);
+    padding: 1em 1.2em;
+    border-radius: 2em;
+    text-decoration: none;
+    font-weight: 700;
+    color: $main;
+
+    .text {
+      @include transition(.3s)
+    }
+  }
+
+  &:before {
+    @include transition(.3s)
+    content: "New Post";
+    position: absolute;
+    white-space: nowrap;
+    top: 50%;
+    right: calc(0% + 1em);
+    transform: translateY(-50%);
+    color: transparentize(#fff, 1);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+
+  &:hover {
+    .button {
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25), 0 8px 10px rgba(0,0,0,0.22);
+
+      .text {
+        transform: rotateZ(-90deg);
+      }
+    }
+  }
+
+  &:hover:before {
+    color: #fff;
+    right: calc(100% + 1em);
+  }
+
+  &:active {
+    .button {
+      background-color: #eee;
     }
   }
 }
