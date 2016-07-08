@@ -7,9 +7,12 @@ def create_document(title, content, meta):
     """
     Creates a new document
     """
-
+    if Document.query.filter(Document.title == title).first() != None:
+        return False
 
     doc = Document(title, content, meta)
+
+
 
     session.add(doc)
     session.commit()
