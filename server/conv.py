@@ -11,8 +11,7 @@ def do(page):
         try:
             return page(*args, **kwds)
         except:
-            return 'false'
-
+            return 'unknown-error'
 
     return wrapper
 

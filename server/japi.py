@@ -26,13 +26,13 @@ def login():
     password = data['password']
     user = ds.get_user(name)
     if user == None:
-        return 'nope'
+        return 'no-user'
     if user.check_password(password):
         session['logged_in'] = 'true'
         session['ip'] = request.remote_addr
         return 'logged in'
     else:
-        return 'nope'
+        return 'name-pass-incorrect'
 
 @api.route('/logged')
 def logged():
@@ -53,7 +53,7 @@ def logout():
     Sets cookie data to logged_in = 'false'
     """
     session['logged_in'] = 'false'
-    return 'logged out'
+    return 'logged-out'
 
 
 @api.route('/new-user', methods=['POST'])
@@ -66,7 +66,8 @@ def new_user():
     """
     name = request.form['name']
     password = request.form['password']
-    ds.create_user(name, password)
+    if ds.create_user(name, password) == False:
+        return 'exists'
     return 'true'
 
 @api.route('/delete-user', methods=['POST'])
@@ -79,7 +80,8 @@ def delete_user():
     """
     name = request.form['name']
     password = request.form['password']
-    ds.delete_user(name, password)
+    if ds.delete_user(name, password) == False:
+        return 'no-user'
     return 'true'
 
 @api.route('/update-password', methods=['POST'])

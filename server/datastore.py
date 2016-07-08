@@ -61,6 +61,10 @@ def get_by_url(url, content):
     return doc.to_dict(content)
 
 def create_user(name, password):
+
+    if User.query.filter(User.name == name).first() != None:
+        return False
+
     user = User(name, password)
 
     session.add(user)
@@ -74,6 +78,9 @@ def get_user(name):
     return user
 
 def delete_user(name, password):
+    if User.query.filter(User.name == name).first() != None:
+        return False
+
     q = User.query.filter(User.name == name)
     user = q.first()
     if user.check_password(password):
