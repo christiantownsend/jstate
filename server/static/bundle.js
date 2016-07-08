@@ -26258,13 +26258,22 @@
 	      _this.setState({ editing: true });
 	    };
 
-	    _this.handleSave = function () {
+	    _this.updatePost = function () {
 	      if (!_this.refs.title.state.title) {
 	        return;
 	      }
-	      _this.setState({ editing: false });
-	      console.log('Title:', _this.refs.title.state.title);
-	      console.log('Content:', JSON.stringify((0, _draftJs.convertToRaw)(_this.refs.content.state.editorState.getCurrentContent())));
+	      _axios2.default.post('/api/update-post/' + _this.props.params.postUrl, {
+	        title: _this.refs.title.state.title,
+	        content: (0, _draftJs.convertToRaw)(_this.refs.content.state.editorState.getCurrentContent()),
+	        meta: {
+	          image: '/static/img/cover-images/mountain.jpg',
+	          color: 'blue'
+	        }
+	      }).then(function (response) {
+	        _this.setState({ editing: false });
+	      }).catch(function (error) {
+	        return console.log(error);
+	      });
 	    };
 
 	    _this.createPost = function () {

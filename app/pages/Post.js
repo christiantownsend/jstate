@@ -19,13 +19,18 @@ class Post extends React.Component {
       this.setState({editing: true})
     };
 
-    this.handleSave = () => {
-      if (!this.refs.title.state.title) {
-        return;
-      }
-      this.setState({editing: false})
-      console.log('Title:', this.refs.title.state.title)
-      console.log('Content:', JSON.stringify(convertToRaw(this.refs.content.state.editorState.getCurrentContent())));
+    this.updatePost = () => {
+      if (!this.refs.title.state.title) { return; }
+      axios.post(`/api/update-post/${this.props.params.postUrl}`, {
+        title: this.refs.title.state.title,
+        content: convertToRaw(this.refs.content.state.editorState.getCurrentContent()),
+        meta: {
+          image: '/static/img/cover-images/mountain.jpg',
+          color: 'blue'
+        }
+      }).then(response => {
+        this.setState({editing: false})
+      }).catch(error => console.log(error));
     };
 
     this.createPost = () => {
@@ -43,7 +48,7 @@ class Post extends React.Component {
       }).then(response => {
         this.props.history.push(`/projects/${response.data}`)
         this.setState({creating: false, editing: false})
-      }).catch(error => console.log(error))
+      }).catch(error => console.log(error));
     }
 
     this.handleDelete = () => {

@@ -16,6 +16,15 @@ $aside_padding: 3em;
   transition:         unquote($subject) $time cubic-bezier(.25,.8,.25,1);
 }
 
+@mixin fade-in($duration:".4s", $delay:"0") {
+  opacity: 0;
+  animation-name: fade-in;
+  animation-delay: unquote($delay);
+  animation-duration: unquote($duration);
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
 /* Base Styles */
 body {
   font-family: 'Raleway', sans-serif;
@@ -228,6 +237,7 @@ p {
     }
 
     .title {
+      @include fade-in(1s, .2s)
       display: inline-block;
       font-family: 'Montserrat', 'Raleway', sans-serif;
       text-align: center;
@@ -242,6 +252,7 @@ p {
   }
 
   main {
+    @include fade-in(1s, .5s)
     padding-top: 2em;
     font-size: 20px;
 
@@ -323,4 +334,10 @@ p {
     }
 
   }
+}
+
+/* Animations */
+@keyframes fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
