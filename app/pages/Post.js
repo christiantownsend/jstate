@@ -48,6 +48,10 @@ class Post extends React.Component {
           color: 'blue'
         }
       }).then(response => {
+        if (response.data == 'in-use') {
+          alert("Sorry, there is another post with that title. Please use a different title and try again.")
+          return;
+        }
         this.props.history.push(`/projects/${response.data}`)
         this.setState({creating: false, editing: false})
       }).catch(error => console.log(error));
