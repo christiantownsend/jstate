@@ -26,7 +26,7 @@ def login():
     password = data['password']
     user = ds.get_user(name)
     if user == None:
-        return 'no-user'
+        return 'no-user', 401
     if user.check_password(password):
         session['logged_in'] = 'true'
         session['ip'] = request.remote_addr
