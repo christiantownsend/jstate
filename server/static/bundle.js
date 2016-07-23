@@ -20404,6 +20404,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _axios = __webpack_require__(373);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	var _Aside = __webpack_require__(170);
 
 	var _Aside2 = _interopRequireDefault(_Aside);
@@ -20427,19 +20431,35 @@
 	var Index = function (_React$Component) {
 	  _inherits(Index, _React$Component);
 
-	  function Index() {
+	  function Index(props) {
 	    _classCallCheck(this, Index);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Index).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this, props));
+
+	    _this.state = {
+	      logged: false
+	    };
+	    return _this;
 	  }
 
 	  _createClass(Index, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+
+	      _axios2.default.get('/api/logged').then(function (response) {
+	        return _this2.setState({ logged: response.data });
+	      }).catch(function (error) {
+	        return console.log(error);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_NewPostButton2.default, null),
+	        this.state.logged ? _react2.default.createElement(_NewPostButton2.default, null) : null,
 	        _react2.default.createElement(_Aside2.default, null),
 	        _react2.default.createElement(_PostsList2.default, null)
 	      );
@@ -20455,102 +20475,59 @@
 /* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _axios = __webpack_require__(373);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Aside = function (_React$Component) {
-	  _inherits(Aside, _React$Component);
-
-	  function Aside(props) {
-	    _classCallCheck(this, Aside);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Aside).call(this, props));
-
-	    _this.state = {
-	      logged: false
-	    };
-	    return _this;
-	  }
-
-	  _createClass(Aside, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var _this2 = this;
-
-	      _axios2.default.get('/api/logged').then(function (response) {
-	        return _this2.setState({ logged: response.data });
-	      }).catch(function (error) {
-	        return console.log(error);
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'aside',
-	        { id: 'me' },
-	        _react2.default.createElement(
-	          'h1',
-	          { className: 'name' },
-	          'Christian Townsend'
-	        ),
-	        _react2.default.createElement('hr', null),
-	        _react2.default.createElement(
-	          'p',
-	          { className: 'about' },
-	          'Hi, I\'m a high school student with a passion for creating things. I\'m interested in all fields of design, and I\'d like to pursue a career in graphic design, specifically focusing on user interface and interaction. I hope you enjoy viewing my work as much as I enjoyed creating it!'
-	        ),
-	        _react2.default.createElement(
-	          'section',
-	          { className: 'contact' },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'Find me here:'
-	          ),
-	          _react2.default.createElement(
-	            'a',
-	            { href: 'mailto:christianttownsend@gmail.com' },
-	            'email'
-	          ),
-	          _react2.default.createElement(
-	            'a',
-	            { href: 'https://github.com/christiantownsend' },
-	            'github'
-	          ),
-	          _react2.default.createElement(
-	            'a',
-	            { href: 'https://dribbble.com/christiantownsend' },
-	            'dribbble'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Aside;
-	}(_react2.default.Component);
+	var Aside = function Aside() {
+	  return _react2.default.createElement(
+	    "aside",
+	    { id: "me" },
+	    _react2.default.createElement(
+	      "h1",
+	      { className: "name" },
+	      "Christian Townsend"
+	    ),
+	    _react2.default.createElement("hr", null),
+	    _react2.default.createElement(
+	      "p",
+	      { className: "about" },
+	      "Hi, I'm a high school student with a passion for creating things. I'm interested in all fields of design, and I'd like to pursue a career in graphic design, specifically focusing on user interface and interaction. I hope you enjoy viewing my work as much as I enjoyed creating it!"
+	    ),
+	    _react2.default.createElement(
+	      "section",
+	      { className: "contact" },
+	      _react2.default.createElement(
+	        "h3",
+	        null,
+	        "Find me here:"
+	      ),
+	      _react2.default.createElement(
+	        "a",
+	        { href: "mailto:christianttownsend@gmail.com" },
+	        "email"
+	      ),
+	      _react2.default.createElement(
+	        "a",
+	        { href: "https://github.com/christiantownsend" },
+	        "github"
+	      ),
+	      _react2.default.createElement(
+	        "a",
+	        { href: "https://dribbble.com/christiantownsend" },
+	        "dribbble"
+	      )
+	    )
+	  );
+	};
 
 	exports.default = Aside;
 
@@ -26312,6 +26289,10 @@
 	          color: 'blue'
 	        }
 	      }).then(function (response) {
+	        if (response.data == 'in-use') {
+	          alert("Sorry, there is another post with that title. Please use a different title and try again.");
+	          return;
+	        }
 	        _this.props.history.push('/projects/' + response.data);
 	        _this.setState({ creating: false, editing: false });
 	      }).catch(function (error) {
@@ -46008,26 +45989,41 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+
+	      var form = void 0;
+	      if (this.state.logged) {
+	        form = _react2.default.createElement(
+	          'article',
+	          { className: 'login-form' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'You are already logged in'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.submitLogout },
+	            'Logout'
+	          )
+	        );
+	      } else {
+	        form = _react2.default.createElement(
+	          'article',
+	          { className: 'login-form' },
+	          _react2.default.createElement('input', { id: 'user-input', type: 'text', placeholder: 'Username', onChange: this.updateUsername }),
+	          _react2.default.createElement('input', { id: 'user-input', type: 'password', placeholder: 'Password', onChange: this.updatePassword }),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.submitLogin },
+	            'Submit'
+	          )
+	        );
+	      }
+
 	      return _react2.default.createElement(
-	        'article',
-	        { className: 'login-form' },
-	        _react2.default.createElement('input', { id: 'user-input', type: 'text', placeholder: 'Username', onChange: this.updateUsername }),
-	        _react2.default.createElement('input', { id: 'user-input', type: 'password', placeholder: 'Password', onChange: this.updatePassword }),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.submitLogin },
-	          'Submit'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.submitLogout },
-	          'Logout'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          JSON.stringify(this.state)
-	        )
+	        'div',
+	        null,
+	        form
 	      );
 	    }
 	  }]);

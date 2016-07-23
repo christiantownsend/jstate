@@ -44,18 +44,32 @@ class Login extends React.Component {
   }
 
   render() {
+
+    let form;
+    if (this.state.logged) {
+      form = (
+        <article className="login-form">
+          <h3>You are already logged in</h3>
+
+          <button onClick={this.submitLogout}>Logout</button>
+        </article>
+      )
+    } else {
+      form = (
+        <article className="login-form">
+
+          <input id="user-input" type="text" placeholder="Username" onChange={this.updateUsername}></input>
+          <input id="user-input" type="password" placeholder="Password" onChange={this.updatePassword}></input>
+
+          <button onClick={this.submitLogin}>Submit</button>
+        </article>
+      )
+    }
+
     return (
-      <article className="login-form">
-
-        <input id="user-input" type="text" placeholder="Username" onChange={this.updateUsername}></input>
-        <input id="user-input" type="password" placeholder="Password" onChange={this.updatePassword}></input>
-
-        <button onClick={this.submitLogin}>Submit</button>
-
-        <button onClick={this.submitLogout}>Logout</button>
-
-        <div>{JSON.stringify(this.state)}</div>
-      </article>
+      <div>
+        {form}
+      </div>
     )
   }
 }
