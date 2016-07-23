@@ -43,9 +43,9 @@ def logged():
         if session['logged_in'] == 'true':
             return 'true'
         else:
-            return 'false'
+            return 'false', 401
     except:
-        return 'false'
+        return 'false', 401
 
 @api.route('/logout', methods=['POST'])
 def logout():
@@ -67,7 +67,7 @@ def new_user():
     name = request.form['name']
     password = request.form['password']
     if ds.create_user(name, password) == False:
-        return 'exists'
+        return 'exists', 401
     return 'true'
 
 @api.route('/user', methods=['DELETE'])
@@ -81,7 +81,7 @@ def delete_user():
     name = request.form['name']
     password = request.form['password']
     if ds.delete_user(name, password) == False:
-        return 'no-user'
+        return 'no-user', 401
     return 'true'
 
 @api.route('/user', methods=['PUT'])

@@ -19,10 +19,10 @@ def check_login(page):
                 print('test2')
                 return page(*args, **kwds)
             else:
-                return 'false'
+                return 'false', 401
         except Exception:
             print(Exception)
-            return 'false'
+            return 'false', 401
 
 
     return wrapper
@@ -38,7 +38,7 @@ def test_check(page):
             print('test2')
             return page(*args, **kwds)
         else:
-            return 'false'
+            return 'false', 401
 
 
     return wrapper
