@@ -33,12 +33,14 @@ class Document(Base):
     content = Column(JSON())
     meta = Column(JSON())
     url = Column(String(50), unique=True)
+    creator = Column(String(50))
 
-    def __init__(self, title=None, content=None, meta=None):
+    def __init__(self, title=None, content=None, meta=None, creator=None):
         self.title = title
         self.content = content
         self.meta = meta
         self.url = title.lower().translate(trans)
+        self.creator = creator
 
     def __repr__(self):
         return "<Document {}>".format(self.title)
@@ -50,6 +52,7 @@ class Document(Base):
         if content:
             out['content'] = self.content
         out['meta'] = self.meta
+        out['creator'] = self.creator
 
 
         return out
@@ -61,6 +64,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     hash = Column(String)
+
 
     def __init__(self, name=None, password=None):
         self.name = name

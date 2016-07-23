@@ -115,7 +115,7 @@ def main():
     out = [i.to_dict() for i in out if i != None]
     return json.dumps(out)
 
-@api.route('/update-post/<url>', methods=['POST'])
+@api.route('/post/<url>', methods=['PUT'])
 @check_login
 def update_post(url):
     data = request.get_json()
@@ -127,12 +127,12 @@ def update_post(url):
     return out
 
 
-@api.route('/get-post/<url>/<int:bool>')
+@api.route('/post/<url>/<int:bool>', methods=['GET'])
 def get_post(url, bool):
 
     return json.dumps(ds.get_by_url(url, bool))
 
-@api.route('/create-post', methods=['POST'])
+@api.route('/post', methods=['POST'])
 @check_login
 def create_post():
     data = request.get_json(force=True, silent=True)
@@ -148,7 +148,7 @@ def create_post():
         return 'in-use'
     return get_url(data['title'])
 
-@api.route('/delete-post/<url>')
+@api.route('/post/<url>', methods=['DELETE'])
 @check_login
 def delete_post(url):
     ds.delete_document(url)
