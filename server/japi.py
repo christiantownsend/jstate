@@ -186,6 +186,4 @@ TODO:
 -new user
 -delete user
 -image upload
-hide post
-publish post
 """
