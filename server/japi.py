@@ -30,6 +30,7 @@ def login():
     if user.check_password(password):
         session['logged_in'] = 'true'
         session['ip'] = request.remote_addr
+        session['name'] = name
         return name
     else:
         return 'name-pass-incorrect', 401
@@ -82,8 +83,14 @@ def delete_user():
     data = request.get_json()
     name = data['name']
     password = data['password']
+
+
+
     if ds.delete_user(name, password) == False:
         return 'no-user', 402
+    if name == session['name']:
+        session['logged_in'] = 'false'
+        return 'delete-logged'
     return 'true'
 
 @api.route('/user', methods=['PUT'])
