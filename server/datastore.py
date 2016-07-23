@@ -78,7 +78,7 @@ def get_user(name):
     return user
 
 def delete_user(name, password):
-    if User.query.filter(User.name == name).first() != None:
+    if User.query.filter(User.name == name).first() == None:
         return False
 
     q = User.query.filter(User.name == name)
