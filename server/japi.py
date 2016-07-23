@@ -56,7 +56,7 @@ def logout():
     return 'logged-out'
 
 
-@api.route('/new-user', methods=['POST'])
+@api.route('/user', methods=['POST'])
 @check_login
 @do
 def new_user():
@@ -70,7 +70,7 @@ def new_user():
         return 'exists'
     return 'true'
 
-@api.route('/delete-user', methods=['POST'])
+@api.route('/user', methods=['DELETE'])
 @check_login
 @do
 def delete_user():
@@ -84,7 +84,7 @@ def delete_user():
         return 'no-user'
     return 'true'
 
-@api.route('/update-password', methods=['POST'])
+@api.route('/user', methods=['PUT'])
 @check_login
 @do
 def update_password():
