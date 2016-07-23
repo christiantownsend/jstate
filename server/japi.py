@@ -47,7 +47,7 @@ def logged():
     except:
         return 'false'
 
-@api.route('/logout', ['POST'])
+@api.route('/logout', methods=['POST'])
 def logout():
     """
     Sets cookie data to logged_in = 'false'
