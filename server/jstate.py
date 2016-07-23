@@ -45,6 +45,7 @@ def test_check(page):
 
 
 from japi import api
+from page import page
 
 app.secret_key= os.urandom(36)
 
