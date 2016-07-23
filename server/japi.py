@@ -30,7 +30,7 @@ def login():
     if user.check_password(password):
         session['logged_in'] = 'true'
         session['ip'] = request.remote_addr
-        return 'logged in'
+        return name
     else:
         return 'name-pass-incorrect'
 
