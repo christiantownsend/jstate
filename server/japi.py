@@ -64,13 +64,14 @@ def new_user():
     User must be logged in
     Takes two values, name and password
     """
-    name = request.form['name']
-    password = request.form['password']
+    data = request.get_json()
+    name = data['name']
+    password = data['password']
     if ds.create_user(name, password) == False:
-        return 'exists', 401
+        return 'exists', 403
     return 'true'
 
-@api.route('/user', methods=['DELETE'])
+@api.route('/user/delete', methods=['POST'])
 @check_login
 @do
 def delete_user():
@@ -78,8 +79,9 @@ def delete_user():
     User must be logged in
     Takes two values, name and password
     """
-    name = request.form['name']
-    password = request.form['password']
+    data = request.get_json()
+    name = data['name']
+    password = data['password']
     if ds.delete_user(name, password) == False:
         return 'no-user', 402
     return 'true'
@@ -92,9 +94,10 @@ def update_password():
     User must be logged in
     Takes three values, name and old_pass and new_pass
     """
-    name = request.form['name']
-    old_pass = request.form['old_pass']
-    new_pass = request.form['new_pass']
+    data = request.get_json()
+    name = data['name']
+    old_pass = data['old_pass']
+    new_pass = data['new_pass']
 
     user = ds.get_user(name)
 
