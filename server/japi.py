@@ -81,7 +81,7 @@ def delete_user():
     name = request.form['name']
     password = request.form['password']
     if ds.delete_user(name, password) == False:
-        return 'no-user', 401
+        return 'no-user', 402
     return 'true'
 
 @api.route('/user', methods=['PUT'])
