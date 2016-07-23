@@ -32,7 +32,7 @@ def login():
         session['ip'] = request.remote_addr
         return name
     else:
-        return 'name-pass-incorrect'
+        return 'name-pass-incorrect', 401
 
 @api.route('/logged')
 def logged():
