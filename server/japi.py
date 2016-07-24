@@ -38,20 +38,28 @@ def login():
 @api.route('/logged')
 def logged():
     """
-    Returns true or false on whether the user is logged in
+    URL: www.example/api/logged
+    METHOD: GET
+    RETURN DATA:
+        'true' or 'false'
     """
     try:
         if session['logged_in'] == 'true':
             return 'true'
         else:
-            return 'false', 401
+            return 'false'
     except:
-        return 'false', 401
+        return 'false'
 
 @api.route('/logout', methods=['POST'])
 def logout():
     """
-    Sets cookie data to logged_in = 'false'
+    URL: www.example/api/logout
+    METHOD: POST
+    PURPOSE:
+        Logs user out
+    RETURN DATA:
+
     """
     session['logged_in'] = 'false'
     return 'logged-out'
@@ -62,8 +70,12 @@ def logout():
 @do
 def new_user():
     """
-    User must be logged in
-    Takes two values, name and password
+    URL: www.example/api/user
+    METHOD: POST
+    PURPOSE:
+        Creates new user if the user is already logged in.
+    RETURN DATA:
+        Errors on existing user, returns true if successful.
     """
     data = request.get_json()
     name = data['name']
@@ -77,8 +89,13 @@ def new_user():
 @do
 def delete_user():
     """
-    User must be logged in
-    Takes two values, name and password
+    URL: www.example/api/user/delete
+    METHOD: POST
+    PURPOSE:
+        Deletes a given user, must have users name and password.
+    RETURN DATA:
+        Returns no-user if deleted user doesn't exist, delete-logged if the currently logged in user is deleted, and
+        true if it is simply successful.
     """
     data = request.get_json()
     name = data['name']
@@ -87,7 +104,7 @@ def delete_user():
 
 
     if ds.delete_user(name, password) == False:
-        return 'no-user', 402
+        return 'no-user', 403
     if name == session['name']:
         session['logged_in'] = 'false'
         return 'delete-logged'
@@ -98,8 +115,13 @@ def delete_user():
 @do
 def update_password():
     """
-    User must be logged in
-    Takes three values, name and old_pass and new_pass
+    URL: www.example/api/user
+    METHOD: PUT
+    PURPOSE:
+        Changes given users password, takes the name, the old_pass, and the new_pass.
+    RETURN DATA:
+        Returns true on success.
+
     """
     data = request.get_json()
     name = data['name']
@@ -119,7 +141,13 @@ def update_password():
 @api.route('/main')
 def main():
     """
-    Returns a JSON list of dicts with title, url, and meta information
+    URL: www.example/api/main
+    METHOD: GET
+    PURPOSE:
+        Gets the default page set of content.
+    RETURN DATA:
+        Returns a JSON list that has an object for each post on the site,
+        with given title, url, and meta values.
     """
     out = ds.page_list()
     out = [i.to_dict() for i in out if i != None]
@@ -154,7 +182,7 @@ def create_post():
     except:
         return 'unknown-error'
 
-    if ds.create_document(data['title'], data['content'], data['meta']) == False:
+    if ds.create_document(data['title'], data['content'], data['meta'], session['name']) == False:
         return 'in-use'
     return get_url(data['title'])
 
