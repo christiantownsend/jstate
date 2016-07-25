@@ -183,7 +183,7 @@ def create_post():
         return 'unknown-error'
 
     if ds.create_document(data['title'], data['content'], data['meta'], session['name']) == False:
-        return 'in-use'
+        return 'in-use', 406
     return get_url(data['title'])
 
 @api.route('/post/<url>', methods=['DELETE'])
