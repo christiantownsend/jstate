@@ -189,8 +189,8 @@ def create_post():
 @api.route('/post/<url>', methods=['DELETE'])
 @check_login
 def delete_post(url):
-    ds.delete_document(url)
-    return 'true'
+    return ds.delete_document(url)
+
 
 @api.route('/get-urls')
 def get_urls():

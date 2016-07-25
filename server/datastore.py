@@ -19,8 +19,12 @@ def create_document(title, content, meta, creator):
     return True
 
 def delete_document(url):
-    Document.query.filter(Document.url == url).delete()
-    session.commit()
+    try:
+        Document.query.filter(Document.url == url).delete()
+        session.commit()
+        return 'true'
+    except:
+        return 'Delete Failed'
 
 def update_document(url, data):
 
