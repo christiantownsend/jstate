@@ -178,13 +178,13 @@ def create_post():
 
     try:
         if data['title'] == '':
-            return 'title-blank'
+            return 'title-blank', 422
     except:
-        return 'unknown-error'
+        return 'no-title', 422
 
     if ds.create_document(data['title'], data['content'], data['meta'], session['name']) == False:
-        return 'in-use', 406
-    return get_url(data['title'])
+        return 'in-use', 409
+    return get_post(get_url(data['title']), 0)
 
 @api.route('/post/<url>', methods=['DELETE'])
 @check_login
