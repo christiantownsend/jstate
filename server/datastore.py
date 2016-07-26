@@ -81,6 +81,26 @@ def get_user(name):
 
     return user
 
+def users():
+    """
+    Generator that yields all numbered entries in the database
+    """
+
+    num = 1
+    rows = 0
+    if num == 1:
+        rows += User.query.count()
+
+    while num <= rows:
+        while User.query.get(num) == None:
+            rows += 1
+            num +=1
+        yield User.query.get(num).name
+        num += 1
+
+def user_list():
+    return list(users())
+
 def delete_user(name, password):
     if User.query.filter(User.name == name).first() == None:
         return False
