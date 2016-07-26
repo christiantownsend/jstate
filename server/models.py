@@ -57,25 +57,12 @@ class Document(Base):
             out['content'] = self.content
         out['meta'] = self.meta
         out['creator'] = self.creator
+        out['date'] = self.date.isoformat().split('T')[0]
 
 
 
         return out
 
-    @hybrid_method
-    def meta_contains(self, args):
-
-        last = self.to_dict(self)
-
-        for i in self.meta:
-            print(i)
-
-        print(last['creator'] == 'me')
-        for arg in args:
-            if arg not in last:
-                return False
-            last = last[arg]
-        return True
 
 class User(Base):
     __tablename__ = 'users'

@@ -140,6 +140,14 @@ def update_password():
 def all_users():
     return json.dumps(ds.user_list())
 
+@api.route('/users/<name>', methods=['GET'])
+def get_posts_by_name(name):
+
+    out = [doc.to_dict() for doc in ds.get_by_creator(name)]
+
+    return json.dumps(out)
+
+
 @api.route('/main')
 def main():
     """

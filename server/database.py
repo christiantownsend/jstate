@@ -3,9 +3,9 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
 
-from jstate import main_path
+#from jstate import main_path
 
-#main_path = r'C:\Users\Trase\PycharmProjects\jstate-master\server'
+main_path = r'C:\Users\Trase\PycharmProjects\jstate-master\server'
 
 db_path = os.path.abspath(os.path.join(main_path, 'test.db'))
 

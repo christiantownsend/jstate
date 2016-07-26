@@ -2,6 +2,7 @@ from database import init_db
 from database import session
 from models import Document, User
 from conv import trans
+from sqlalchemy import desc
 
 def create_document(title, content, meta, creator):
     """
@@ -57,7 +58,10 @@ def pages():
         num += 1
 
 def page_list():
-    return list(pages())
+    return Document.query.order_by(Document.date.desc()).all()
+
+def get_by_creator(name):
+    return Document.query.order_by(Document.date.desc()).filter(Document.creator == name).all()
 
 def get_by_url(url, content):
     doc = Document.query.filter(Document.url == url).first()
