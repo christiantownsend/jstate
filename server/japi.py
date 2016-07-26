@@ -172,7 +172,7 @@ def get_post(url, bool):
     if out == None:
         return 'No such document', 404
 
-    return out
+    return json.dumps(out)
 
 @api.route('/post', methods=['POST'])
 @check_login
@@ -187,7 +187,7 @@ def create_post():
         return 'no-title', 422
 
     if ds.create_document(data['title'], data['content'], data['meta'], session['name']) == False:
-        return 'in-use', 409
+        return 'exists', 409
     return get_post(get_url(data['title']), 0)
 
 @api.route('/post/<url>', methods=['DELETE'])

@@ -114,3 +114,5 @@ def test_data():
 def test_get():
     for i in Document.query.all():
         print(get_by_url(i.url, content=1))
+
+
