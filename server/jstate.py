@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 main_path = os.path.abspath(os.path.join(app.static_folder, '..\\'))
 
+
 def check_login(page):
 
     @wraps(page)

@@ -5,7 +5,7 @@ import os
 
 from jstate import main_path
 
-
+#main_path = r'C:\Users\Trase\PycharmProjects\jstate-master\server'
 
 db_path = os.path.abspath(os.path.join(main_path, 'test.db'))
 

@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime
 from database import Base
 import sqlalchemy.types as types
-import json, bcrypt, hmac
+from sqlalchemy.ext.hybrid import hybrid_method
+import json, bcrypt, hmac, datetime
 
 trans = str.maketrans('0123456789abcdefghijklmnopqrstuvwxyz ', '0123456789abcdefghijklmnopqrstuvwxyz-', '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~\t\n\r\x0b\x0c')
 
@@ -22,6 +23,8 @@ class JSON(types.TypeDecorator):
         return json.loads(value)
 
 
+
+
 class Document(Base):
     # content structure:
     #
@@ -34,6 +37,7 @@ class Document(Base):
     meta = Column(JSON())
     url = Column(String(50), unique=True)
     creator = Column(String(50))
+    date = Column(DateTime, default=datetime.datetime.utcnow)
 
     def __init__(self, title=None, content=None, meta=None, creator=None):
         self.title = title
@@ -55,8 +59,23 @@ class Document(Base):
         out['creator'] = self.creator
 
 
+
         return out
 
+    @hybrid_method
+    def meta_contains(self, args):
+
+        last = self.to_dict(self)
+
+        for i in self.meta:
+            print(i)
+
+        print(last['creator'] == 'me')
+        for arg in args:
+            if arg not in last:
+                return False
+            last = last[arg]
+        return True
 
 class User(Base):
     __tablename__ = 'users'
@@ -64,6 +83,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     hash = Column(String)
+
 
 
     def __init__(self, name=None, password=None):

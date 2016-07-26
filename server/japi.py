@@ -45,7 +45,7 @@ def logged():
     """
     try:
         if session['logged_in'] == 'true':
-            return 'true'
+            return session['name']
         else:
             return 'false'
     except:
@@ -221,6 +221,12 @@ def upload_image():
     data = request.form['data']
 
     return create_image(filename, data, main_path)
+
+
+@api.route('/query')
+def query():
+    pass
+
 
 @api.route('/viewrequest', methods=['POST'])
 def viewrequest():
