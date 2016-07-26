@@ -26,16 +26,16 @@ def delete_document(url):
     except:
         return 'Delete Failed'
 
-def update_document(url, data):
+def update_document(url, title, content, meta):
 
     doc = Document.query.filter(Document.url == url).first()
     if doc == None:
         return False
 
-    doc.title = data['title']
-    doc.content = data['content']
-    doc.meta = data['meta']
-    doc.url = data['title'].lower().translate(trans)
+    doc.title = title
+    doc.content = content
+    doc.meta = meta
+    doc.url = title.lower().translate(trans)
     session.commit()
     return doc.url
 

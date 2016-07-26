@@ -158,10 +158,14 @@ def main():
 def update_post(url):
     data = request.get_json()
 
-    if data['title'] == '':
-        return 'false'
+    title = data['title']
+    content = data['content']
+    meta = data['meta']
 
-    out = ds.update_document(url, data)
+    if data['title'] == '':
+        return 'no title', 409
+
+    out = ds.update_document(url, title, content, meta)
     return out
 
 
