@@ -168,7 +168,11 @@ def update_post(url):
 @api.route('/post/<url>/<int:bool>', methods=['GET'])
 def get_post(url, bool):
 
-    return json.dumps(ds.get_by_url(url, bool))
+    out = ds.get_by_url(url, bool)
+    if out == None:
+        return 'No such document', 404
+
+    return out
 
 @api.route('/post', methods=['POST'])
 @check_login
