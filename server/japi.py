@@ -249,4 +249,7 @@ TODO:
 -new user
 -delete user
 -image upload
+image delete
+image list
+
 """
