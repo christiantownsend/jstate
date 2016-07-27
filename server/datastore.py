@@ -58,7 +58,7 @@ def pages():
         num += 1
 
 def page_list():
-    return Document.query.order_by(Document.date).all()
+    return Document.query.order_by(Document.date.desc()).all()
 
 def get_by_creator(name):
     return Document.query.order_by(Document.date.desc()).filter(Document.creator == name).all()
