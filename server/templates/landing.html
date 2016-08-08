@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div onclick="test(this)">hello world</div>
+
+    <span id="username">admin</span>
+    <span id="password">admin</span>
+
+    <span id="title">title</span>
+    <span id="content">["content"]</span>
+    <span id="meta">["meta"]</span>
+
+    <div onclick="login()">login</div>
+    <div onclick="logout()">logout</div>
+
+    <div onclick="logged()">logged</div>
+    <textarea id="test" onclick="test(this)"></textarea>
+
+    <div onclick="getAllPosts()">all posts</div>
+
+    <div onclick="test(this)">test</div>
+
+    <div onclick="createpost()">create post</div>
+
+
+
+    <div onclick="updatepost('title', false)">update post</div>
+
+
+{% endblock %}

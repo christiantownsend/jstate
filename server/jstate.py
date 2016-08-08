@@ -1,12 +1,23 @@
 from flask import Flask, render_template, session, redirect, url_for, request
 import sqlalchemy, base64, json, os
-import datastore as ds
-from functools import wraps
 
+from functools import wraps
+import config as conf
 
 app = Flask(__name__)
 
 main_path = os.path.abspath(os.path.join(app.static_folder, '..\\'))
+
+if __name__ == '__main__':
+    out_path = os.path.join(main_path, 'mainpath.py')
+    with open(out_path, 'w') as f:
+        print('test')
+        f.write('main_path = r"{}"'.format(main_path))
+
+
+from database import init_db
+from models import Document
+import datastore as ds
 
 
 def check_login(page):
@@ -47,6 +58,7 @@ def test_check(page):
 
 from japi import api
 from page import page
+from routes import r
 
 app.secret_key= os.urandom(36)
 
@@ -59,19 +71,21 @@ app.register_blueprint(page, url_prefix='/page')
 
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    return render_template('index.html')
 
+if conf.catch_all:
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
+    def catch_all(path):
+        return render_template('index.html')
+else:
+    app.register_blueprint(r, url_prefix='')
 
 
 
 if __name__ == '__main__':
-    from database import init_db
-    from database import session
-    from models import Document
-    import datastore as ds
+
+
+
     init_db()
 
     if ds.get_user('admin') == None:

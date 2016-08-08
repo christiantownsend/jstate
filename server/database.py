@@ -3,7 +3,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
 
-from jstate import main_path
+from mainpath import main_path
 
 
 #main_path = r'C:\Users\Trase\PycharmProjects\jstate-master\server'

@@ -65,8 +65,9 @@ def get_by_creator(name):
 
 def get_by_url(url, content):
     doc = Document.query.filter(Document.url == url).first()
-
-    return doc.to_dict(content)
+    if doc != None:
+        return doc.to_dict(content)
+    return 'no-document'
 
 def create_user(name, password):
 

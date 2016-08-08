@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div onclick="updatepost(geturl(), true)">update post</div>
+    <span id="title">new title</span>
+    <span id="content">["new content"]</span>
+    <span id="meta">["meta"]</span>
+
+    <div onclick="deletepost(geturl())">delete post</div>
+
+    {{ ds.get_by_url(url, 1) }}
+
+{% endblock %}

@@ -1,0 +1,27 @@
+body {
+  padding: 10px;
+}
+
+div {
+  margin: 5px;
+  box-shadow: 1px 1px 5px 0px #555;
+  width: auto;
+  display: inline-block;
+  padding: 4px;
+  cursor: pointer;
+  font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+
+  &:hover {
+    transition: all .3s ease-in-out;
+    box-shadow: 1px 3px 10px 0px #777;
+  }
+}
+
+span {
+  margin: 5px;
+  box-shadow: 1px 1px 5px 0px #f7f;
+  width: auto;
+  display: inline-block;
+  padding: 4px;
+  font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+}
