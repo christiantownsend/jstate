@@ -78,28 +78,16 @@ function login() {
 
 
 function logout() {
-    axios.post('/api/logout', {})
+    return axios.post('/api/logout', {})
 }
 
 function logged() {
 
-    axios.get('/api/logged').then( function (response) {
-        var name = false;
-
-        name = response.data;
-        console.log(name);
-
-        return name;
-    });
+    return axios.get('/api/logged');
 }
 
-function getAllPosts(func) {
-    return axios.get('/api/main').then( function (func, response) {
-        console.log(response.data);
-        return response;
-    }).catch(function (error) {
-        console.log(error);
-    });
+function getAllPosts() {
+    return axios.get('/api/main');
 }
 
 
@@ -154,18 +142,7 @@ function deletepost(url) {
     return axios.delete('/api/post/' + url).then( function (response) {return true;}).catch(function (response) {return false;});
 }
 
-function getpost(url, content) {
 
-    var location = '/api/post/' + url + '/' + content;
-    var data = {out: null};
-    var out = axios.get(location).then( data, response => {
-        data.out = response.data;
-
-        return response.data;
-    });
-    console.log(data);
-    return data.out;
-}
 
 
 

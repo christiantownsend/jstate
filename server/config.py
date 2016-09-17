@@ -1,1 +1,1 @@
-catch_all = False
+catch_all = True
