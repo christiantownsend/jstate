@@ -8,10 +8,10 @@ app = Flask(__name__)
 
 main_path = os.path.abspath(os.path.join(app.static_folder, '..\\'))
 
-if __name__ == '__main__':
+if 'mainpath.py' not in os.listdir(main_path):
     out_path = os.path.join(main_path, 'mainpath.py')
     with open(out_path, 'w') as f:
-        print('test')
+
         f.write('main_path = r"{}"'.format(main_path))
 
 
@@ -28,7 +28,7 @@ def check_login(page):
         try:
             print(session)
             if session['logged_in'] == 'true' and session['ip'] == request.remote_addr:
-                print('test2')
+
                 return page(*args, **kwds)
             else:
                 return 'false', 403
@@ -47,7 +47,7 @@ def test_check(page):
 
         print(session)
         if session['logged_in'] == 'true':
-            print('test2')
+
             return page(*args, **kwds)
         else:
             return 'false', 401
