@@ -33,7 +33,7 @@ def check_login(page):
             else:
                 return 'false', 403
         except Exception:
-            print(Exception)
+            
             return 'false', 403
 
 
