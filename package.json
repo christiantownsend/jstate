@@ -4,7 +4,9 @@
   "description": "Blog system running on flask and react, powering a simple portfolio site",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "build": "webpack",
+    "watch": "webpack -w"
   },
   "author": "Christian Townsend, Trase Westbrook",
   "license": "MIT",
